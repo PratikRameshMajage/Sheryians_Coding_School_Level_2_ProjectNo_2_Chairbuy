@@ -83,6 +83,29 @@ function addToCart(){
     })
 }
 
+// Show Cart
+function showCart(){
+    document.querySelector(".carticon").addEventListener("click", function(){
+        document.querySelector(".cartexpnd").style.display = "block";
+
+        var clutter = "";
+        cart.forEach(function(product, index){
+            clutter += `<div class="flex gap-2 bg-white p-2  rounded-lg">
+            <div class="w-10 h-10 flex-shrink-0 rounded-lg overflow-hidden">
+                    <img class="w-full h-full object-cover" src="${product.image}" />
+            </div>
+            <div>
+                <h3 class="font-semibold">${product.name}</h3>
+                <h5 class="text-sm font-semibold opacity-80">${product.price}</h5>
+            </div>
+        </div>`;
+        })
+        document.querySelector(".cartexpnd").innerHTML = clutter;
+    });
+}
+
+
+showCart()
 addToCart();
 addpopularProducts();
 addProducts();
