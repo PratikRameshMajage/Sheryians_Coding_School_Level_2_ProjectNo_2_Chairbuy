@@ -30,9 +30,11 @@ var popular = [
     },
 ]
 
+var cart =[];
+
 function addProducts(){
     var clutter = "";
-    products.forEach(function(product){
+    products.forEach(function(product, index){
         clutter += `<div class="product w-fit rounded-xl p-2 bg-white">
         <div class="image w-[14rem] h-[13rem] bg-zinc-200 rounded-xl overflow-hidden">
             <img class="w-full h-full object-cover" src="${product.image}" >
@@ -44,8 +46,8 @@ function addProducts(){
                     <h3 class="font-semibold opacity-20">${product.headline}</h3>
                     <h4 class="font-semibold mt-2">${product.price}</h4>
                 </div>
-                <button class="w-10 h-10 rounded-full shader text-yellow-400"><i
-                        class="ri-add-line"></i></button>
+                <button data-index="${index}" class="add w-10 h-10 rounded-full shader text-yellow-400">
+                <i data-index="${index}" class="add ri-add-line"></i></button>
             </div>
         </div>
     </div>`;
@@ -70,5 +72,17 @@ function addpopularProducts(){
     })
     document.querySelector(".populars").innerHTML = clutter;
 }
-addpopularProducts()
-addProducts()
+
+// Event Bubbling
+function addToCart(){
+    document.querySelector(".products").addEventListener("click", function(details){
+        if(details.target.classList.contains('add')){
+            cart.push(products[details.target.dataset.index]);
+            console.log(cart);
+        }
+    })
+}
+
+addToCart();
+addpopularProducts();
+addProducts();
